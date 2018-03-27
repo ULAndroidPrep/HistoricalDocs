@@ -1,8 +1,11 @@
 package edu.rosehulman.fisherds.historicaldocs;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import edu.rosehulman.fisherds.historicaldocs.fragments.AboutFragment;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +45,10 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
+
+//    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//    ft.add(R.id.fragment_container, new AboutFragment());
+//    ft.commit();
   }
 
   @Override
@@ -80,7 +89,13 @@ public class MainActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    // TODO: Put back code here for menu item selection
+    Fragment switchTo = null;
+    if (id == R.id.nav_about) {
+      switchTo = new AboutFragment();
+    }
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.add(R.id.fragment_container, switchTo);
+    ft.commit();
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);

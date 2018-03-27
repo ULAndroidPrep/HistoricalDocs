@@ -10,4 +10,7 @@
     <string name="about_fragment_text">This app was written by Matt Boutell and Tyler Rockwood. Choose docs from the menu to see a list of titles of historical documents.
         Click on any title in the list to see the text of that document.</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
