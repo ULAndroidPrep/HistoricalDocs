@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.rosehulman.fisherds.historicaldocs.fragments.AboutFragment;
+import edu.rosehulman.fisherds.historicaldocs.fragments.DocDetailFragment;
 import edu.rosehulman.fisherds.historicaldocs.fragments.DocListFragment;
 import edu.rosehulman.fisherds.historicaldocs.utils.Constants;
 
@@ -116,5 +117,11 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onDocSelected(Doc doc) {
     Log.d(Constants.TAG, "Selected a doc for " + doc.getTitle());
+
+
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.replace(R.id.fragment_container, DocDetailFragment.newInstance(doc));
+    ft.commit();
+
   }
 }
