@@ -92,6 +92,10 @@ public class MainActivity extends AppCompatActivity
     Fragment switchTo = null;
     if (id == R.id.nav_about) {
       switchTo = new AboutFragment();
+    } else if (id == R.id.nav_docs) {
+      return true;
+    } else if (id == R.id.nav_settings) {
+      return true;
     }
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     ft.add(R.id.fragment_container, switchTo);
