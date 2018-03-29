@@ -4,21 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.rosehulman.fisherds.historicaldocs.Doc;
+import edu.rosehulman.fisherds.historicaldocs.DocListAdapter;
 import edu.rosehulman.fisherds.historicaldocs.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DocListFragment.OnFragmentInteractionListener} interface
+ * {@link OnDocSelectedListener} interface
  * to handle interaction events.
  */
 public class DocListFragment extends Fragment {
 
-  private OnFragmentInteractionListener mListener;
+  private OnDocSelectedListener mListener;
 
   public DocListFragment() {
     // Required empty public constructor
@@ -28,25 +32,24 @@ public class DocListFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_doc_list, container, false);
-  }
+    RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_doc_list, container, false);
 
-  // TODO: Rename method, update argument and hook method into UI event
-  public void onButtonPressed(Uri uri) {
-    if (mListener != null) {
-      mListener.onFragmentInteraction(uri);
-    }
+    view.setHasFixedSize(true);
+    view.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+    DocListAdapter adapter = new DocListAdapter(getContext(), mListener);
+    view.setAdapter(adapter);
+
+    return view;
   }
 
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    if (context instanceof OnFragmentInteractionListener) {
-      mListener = (OnFragmentInteractionListener) context;
+    if (context instanceof OnDocSelectedListener) {
+      mListener = (OnDocSelectedListener) context;
     } else {
-      throw new RuntimeException(context.toString()
-          + " must implement OnFragmentInteractionListener");
+      throw new RuntimeException(context.toString() + " must implement OnDocSelectedListener");
     }
   }
 
@@ -66,8 +69,7 @@ public class DocListFragment extends Fragment {
    * "http://developer.android.com/training/basics/fragments/communicating.html"
    * >Communicating with Other Fragments</a> for more information.
    */
-  public interface OnFragmentInteractionListener {
-    // TODO: Update argument type and name
-    void onFragmentInteraction(Uri uri);
+  public interface OnDocSelectedListener {
+    void onDocSelected(Doc doc);
   }
 }

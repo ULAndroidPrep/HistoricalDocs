@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.rosehulman.fisherds.historicaldocs.fragments.AboutFragment;
+import edu.rosehulman.fisherds.historicaldocs.fragments.DocListFragment;
+import edu.rosehulman.fisherds.historicaldocs.utils.Constants;
 
 public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener,
+    DocListFragment.OnDocSelectedListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -93,16 +97,24 @@ public class MainActivity extends AppCompatActivity
     if (id == R.id.nav_about) {
       switchTo = new AboutFragment();
     } else if (id == R.id.nav_docs) {
-      return true;
-    } else if (id == R.id.nav_settings) {
-      return true;
+      switchTo = new DocListFragment();
     }
-    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.add(R.id.fragment_container, switchTo);
-    ft.commit();
+//    else if (id == R.id.nav_settings) {
+//      return true;
+//    }
+    if (switchTo != null) {
+      FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+      ft.replace(R.id.fragment_container, switchTo);
+      ft.commit();
+    }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  @Override
+  public void onDocSelected(Doc doc) {
+    Log.d(Constants.TAG, "Selected a doc for " + doc.getTitle());
   }
 }
