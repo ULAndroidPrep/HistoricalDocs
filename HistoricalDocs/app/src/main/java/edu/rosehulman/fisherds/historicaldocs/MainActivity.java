@@ -106,6 +106,13 @@ public class MainActivity extends AppCompatActivity
     if (switchTo != null) {
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.replace(R.id.fragment_container, switchTo);
+
+      // Optional: Clear the entire back stack.
+      for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); ++i) {
+        getSupportFragmentManager().popBackStackImmediate();
+      }
+
+
       ft.commit();
     }
 
@@ -121,6 +128,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     ft.replace(R.id.fragment_container, DocDetailFragment.newInstance(doc));
+    ft.addToBackStack("detail");
     ft.commit();
 
   }
