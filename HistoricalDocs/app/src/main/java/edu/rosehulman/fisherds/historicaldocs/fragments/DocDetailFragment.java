@@ -19,8 +19,6 @@ import edu.rosehulman.fisherds.historicaldocs.R;
 public class DocDetailFragment extends Fragment {
   private static final String ARG_DOC = "arg_doc";
   private Doc mDoc;
-  private TextView mTitleTextView;
-  private TextView mBodyTextView;
 
   public DocDetailFragment() {
     // Required empty public constructor
@@ -47,11 +45,11 @@ public class DocDetailFragment extends Fragment {
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_doc_detail, container, false);
-    mTitleTextView = view.findViewById(R.id.fragment_doc_detail_title);
-    mBodyTextView = view.findViewById(R.id.fragment_doc_detail_body);
+    TextView titleTextView = view.findViewById(R.id.fragment_doc_detail_title);
+    TextView bodyTextView = view.findViewById(R.id.fragment_doc_detail_body);
 
-    mTitleTextView.setText(mDoc.getTitle());
-    mBodyTextView.setText(mDoc.getText());
+    titleTextView.setText(mDoc.getTitle());
+    bodyTextView.setText(mDoc.getText());
     return view;
   }
 
